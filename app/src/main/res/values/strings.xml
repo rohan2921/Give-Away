@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Give Away</string>
+    <string-array name="types">
+        <item> </item>
+        <item>Food</item>
+        <item>Electrical</item>
+        <item>Material</item>
+    </string-array>
+</resources>
