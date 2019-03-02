@@ -38,6 +38,7 @@ public class register extends AppCompatActivity {
         e=(EditText)findViewById(R.id.e);
         p=(EditText)findViewById(R.id.p);
         cr = (Button)findViewById(R.id.cr);
+        db = FirebaseFirestore.getInstance();
     }
 
     public void cr(View view) {
@@ -59,22 +60,27 @@ public class register extends AppCompatActivity {
                     Map<String, Object> user = new HashMap<>();
                                 user.put("email", email);
                                 user.put("phone", n);
-                                db.collection("Users").document(currentUser.getUid().toString()).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                db.collection("Users").document(currentUser.getUid().toString()).set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Toast.makeText(register.this,"Registration sucessful",Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(register.this,setup.class);
-                                        Toast.makeText(register.this,"success registration",Toast.LENGTH_LONG).show();
-                                        startActivity(intent);
-                                        finish();
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if(task.isSuccessful()) {
+                                            Toast.makeText(register.this,"Registration sucessful",Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(register.this,setup.class);
+                                            Toast.makeText(register.this,"success registration",Toast.LENGTH_LONG).show();
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                        else {
+                                            String e = task.getException().getMessage();
+                                            Toast.makeText(register.this,"Fire store error " + e ,Toast.LENGTH_SHORT).show();
+                                        }
                                     }
                                 });
-                }
-                       else {
-                           Toast.makeText(register.this, " ERROR registering", Toast.LENGTH_SHORT).show();
-                       }
                         }
-                    });
+                else {
+                    Toast.makeText(register.this, " ERROR registering", Toast.LENGTH_SHORT).show();
+                }
+                    }});
 
     }
 }
