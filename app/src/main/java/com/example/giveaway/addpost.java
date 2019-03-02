@@ -108,7 +108,7 @@ public class addpost extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1 && resultCode == RESULT_OK) {
             Uri imageUri = data.getData();
-            CropImage.activity(imageUri).start(this);
+            CropImage.activity(imageUri).setAspectRatio(1,1).start(this);
         }
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
