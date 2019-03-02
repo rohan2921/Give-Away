@@ -61,8 +61,8 @@ public class login extends AppCompatActivity {
                     finish();
                 }
                 else {
-
-                    Toast.makeText(login.this, " ERROR registering", Toast.LENGTH_SHORT).show();
+                    String error = task.getException().getMessage().toString();
+                    Toast.makeText(login.this, " ERROR registering : " + error, Toast.LENGTH_SHORT).show();
                 }
             }
         });

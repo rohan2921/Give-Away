@@ -27,7 +27,7 @@ public class register extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     Toolbar toolbar;
-    EditText phone,e,p;
+    EditText e,p;
     Button cr;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,6 @@ public class register extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         mAuth = FirebaseAuth.getInstance();
-        phone=(EditText)findViewById(R.id.name);
         e=(EditText)findViewById(R.id.e);
         p=(EditText)findViewById(R.id.p);
         cr = (Button)findViewById(R.id.cr);
@@ -49,26 +48,28 @@ public class register extends AppCompatActivity {
     }
 
     public void cr(View view) {
-        String n = phone.getText().toString();
+        //String n = phone.getText().toString();
         String email = e.getText().toString();
         String password = p.getText().toString();
-        if(!TextUtils.isEmpty(n) || !TextUtils.isEmpty(email) || !TextUtils.isEmpty(password)) {
-            reg(n,email,password);
+        if(!TextUtils.isEmpty(email) || !TextUtils.isEmpty(password)) {
+            reg(email,password);
         }
     }
 
-    private void reg(String n, String email, String password) {
+    private void reg( String email, String password) {
         mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
-                                            Intent intent = new Intent(register.this,setup.class);
+
+                    Intent intent = new Intent(register.this,setup.class);
                                             Toast.makeText(register.this,"success registration",Toast.LENGTH_LONG).show();
                                             startActivity(intent);
                                             finish();
                                         }
 
                 else {
+                    String error = task.getException().getMessage().toString();
                     Toast.makeText(register.this, " ERROR registering", Toast.LENGTH_SHORT).show();
                 }
                     }});
