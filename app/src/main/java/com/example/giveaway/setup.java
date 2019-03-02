@@ -2,6 +2,7 @@ package com.example.giveaway;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,9 +12,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -31,6 +35,7 @@ public class setup extends AppCompatActivity {
 
     Toolbar toolbar;
     CircleImageView image;
+    Button submit;
     FirebaseUser currentUser;
     StorageReference storageReference;
     FirebaseFirestore db ;
@@ -44,10 +49,12 @@ public class setup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        submit = (Button) findViewById(R.id.submit);
         name = (EditText) findViewById(R.id.name);
         image = (CircleImageView) findViewById(R.id.profile_image);
+        db = FirebaseFirestore.getInstance();
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        storageReference = FirebaseStorage.getInstance().getReference();
+        storageReference = FirebaseStorage.getInstance().getReference("Users").child(currentUser.getUid());
         setTitle("Settings");
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null) {
@@ -61,6 +68,25 @@ public class setup extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        db.collection("Users").document(currentUser.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()) {
+                    if(task.getResult().exists()) {
+                        String na = task.getResult().getString("name");
+                        String im = task.getResult().getString("image");
+                        name.setText(na);
+                        Picasso.get().load(im).placeholder(R.drawable.profile).into(image);
+
+                    }
+                }
+            }
+        });
     }
 
     private void p() {
@@ -88,6 +114,7 @@ public class setup extends AppCompatActivity {
                             @Override
                             public void onSuccess(Uri uri) {
                                 url =  uri.toString();
+                                //db.collection("Users").document(currentUser.getUid()).get();
                                 Picasso.get().load(url).into(image);
                     }
                 });
@@ -109,7 +136,7 @@ public class setup extends AppCompatActivity {
             Map<String, Object> user = new HashMap<>();
             user.put("image", url);
             user.put("name", n);
-            db.collection("Users").document(currentUser.getUid().toString()).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+            db.collection("Users").document(currentUser.getUid().toString()).update(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                     Toast.makeText(setup.this,"Sucess",Toast.LENGTH_SHORT).show();
