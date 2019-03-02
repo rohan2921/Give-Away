@@ -24,10 +24,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.util.HashMap;
@@ -43,9 +45,9 @@ public class addpost extends AppCompatActivity {
     Spinner type;
     FirebaseUser currentUser;
     StorageReference mStorageRef;
-    FirebaseFirestore db ;
+    FirebaseFirestore db , firestore;
     Uri resultUri;
-    String item,uid;
+    String item,uid,n,pi;
     boolean im = false;
 
     @Override
@@ -56,6 +58,7 @@ public class addpost extends AppCompatActivity {
         post = (Button) findViewById(R.id.post);
         text = (EditText) findViewById(R.id.text);
         db = FirebaseFirestore.getInstance();
+        firestore = FirebaseFirestore.getInstance();
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         uid = currentUser.getUid().toString();
         mStorageRef = FirebaseStorage.getInstance().getReference("Posts").child(uid);
@@ -124,7 +127,7 @@ public class addpost extends AppCompatActivity {
 
     public void p(View view) {
 
-        final String d,t,i;
+        final String d,t;
         d = text.getText().toString();
         t = item;
         if(d.isEmpty() || t.isEmpty() || !im) {
@@ -137,20 +140,34 @@ public class addpost extends AppCompatActivity {
                     mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
+
                             final String url =  uri.toString();
-                            Map<String, Object> post = new HashMap<>();
-                            post.put("image", url);
-                            post.put("name", url);
-                            post.put("post", d);
-                            post.put("type", t);
-                            post.put("uid",uid);
-                            db.collection("Posts").add(post).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            firestore.collection("Users").document(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    Toast.makeText(addpost.this,"Posted",Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(addpost.this,MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if(task.isSuccessful()) {
+                                        if(task.getResult().exists()) {
+                                            n = task.getResult().getString("name");
+                                            pi = task.getResult().getString("image");
+
+                                            Map<String, Object> post = new HashMap<>();
+                                            post.put("image", url);
+                                            post.put("pimage", pi);
+                                            post.put("name", n);
+                                            post.put("post", d);
+                                            post.put("type", t);
+                                            post.put("uid",uid);
+                                            db.collection("Posts").document(uid).set(post).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    Toast.makeText(addpost.this,"Posted",Toast.LENGTH_SHORT).show();
+                                                    Intent intent = new Intent(addpost.this,MainActivity.class);
+                                                    startActivity(intent);
+                                                    finish();
+                                                }
+                                            });
+                                        }
+                                    }
                                 }
                             });
                                 }

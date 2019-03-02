@@ -14,9 +14,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".setup" />
-        <activity android:name=".register" />
-        <activity android:name=".login" />
+        <activity android:name=".AllPosts" android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".setup"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".register"
+            android:parentActivityName=".start" />
+        <activity
+            android:name=".login"
+            android:parentActivityName=".start" />
         <activity android:name=".start" />
         <activity
             android:name=".addpost"

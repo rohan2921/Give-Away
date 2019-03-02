@@ -42,7 +42,7 @@ public class setup extends AppCompatActivity {
     Uri resultUri;
     boolean im = false;
     EditText name;
-    String url;
+    String url,n;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,10 +78,10 @@ public class setup extends AppCompatActivity {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if(task.isSuccessful()) {
                     if(task.getResult().exists()) {
-                        String na = task.getResult().getString("name");
-                        String im = task.getResult().getString("image");
-                        name.setText(na);
-                        Picasso.get().load(im).placeholder(R.drawable.profile).into(image);
+                        n = task.getResult().getString("name");
+                        url = task.getResult().getString("image");
+                        name.setText(n);
+                        Picasso.get().load(url).placeholder(R.drawable.profile).into(image);
 
                     }
                 }
@@ -114,7 +114,6 @@ public class setup extends AppCompatActivity {
                             @Override
                             public void onSuccess(Uri uri) {
                                 url =  uri.toString();
-                                //db.collection("Users").document(currentUser.getUid()).get();
                                 Picasso.get().load(url).into(image);
                     }
                 });
@@ -128,15 +127,17 @@ public class setup extends AppCompatActivity {
     }
 
     public void submit(View view) {
-        String n = name.getText().toString();
+        n = name.getText().toString();
         if(n.isEmpty() || url.isEmpty()) {
             Toast.makeText(this,"Add image and name",Toast.LENGTH_SHORT).show();
         }
         else {
             Map<String, Object> user = new HashMap<>();
+            user.put("email", currentUser.getEmail());
+            //user.put("phone", ph);
             user.put("image", url);
             user.put("name", n);
-            db.collection("Users").document(currentUser.getUid().toString()).update(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+            db.collection("Users").document(currentUser.getUid().toString()).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                     Toast.makeText(setup.this,"Sucess",Toast.LENGTH_SHORT).show();

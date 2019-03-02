@@ -6,17 +6,25 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 public class MainActivity extends AppCompatActivity {
@@ -50,19 +58,26 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser == null) {
+            Toast.makeText(MainActivity.this,"Login or Register",Toast.LENGTH_SHORT).show();
             change();
         }
-        firebaseFirestore.collection("Users").document(currentUser.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()) {
-                    if(task.getResult().exists()) {
-
+        else  {
+            firebaseFirestore.collection("Users").document(currentUser.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if(task.isSuccessful()) {
+                        if(!task.getResult().exists()) {
+                            Intent intent = new Intent(MainActivity.this,setup.class);
+                            Toast.makeText(MainActivity.this,"Regitration not yet completed",Toast.LENGTH_SHORT).show();
+                            startActivity(intent);
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -81,6 +96,11 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this,setup.class);
             startActivity(intent);
         }
+        else if(item.getItemId() == R.id.addPost) {
+            Intent intent = new Intent(MainActivity.this,addpost.class);
+            startActivity(intent);
+        }
+
         return true;
     }
 
@@ -88,6 +108,11 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this,start.class);
         startActivity(intent);
         finish();
+    }
+
+    public void allposts(View view) {
+        Intent intent = new Intent(this,AllPosts.class);
+        startActivity(intent);
     }
 }
 

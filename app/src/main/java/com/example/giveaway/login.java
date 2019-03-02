@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -18,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class login extends AppCompatActivity {
 
     FirebaseAuth mAuth;
-
+    Toolbar toolbar;
     EditText e,p;
     Button cr;
 
@@ -26,10 +27,18 @@ public class login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         mAuth = FirebaseAuth.getInstance();
         e=(EditText)findViewById(R.id.e);
         p=(EditText)findViewById(R.id.p);
         cr = (Button)findViewById(R.id.cr);
+        setTitle("Settings");
+        setSupportActionBar(toolbar);
+        if(getSupportActionBar() != null) {
+            assert  getSupportActionBar() != null;
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
     }
 
     public void cr(View view) {
