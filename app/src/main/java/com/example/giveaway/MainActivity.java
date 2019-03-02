@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -29,7 +30,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 public class MainActivity extends AppCompatActivity {
 
-    FloatingActionButton floatingActionButton;
+    Button addpost,learn,allposts;
     Toolbar toolbar;
     FirebaseAuth mAuth;
     FirebaseFirestore firebaseFirestore;
@@ -40,17 +41,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
-        floatingActionButton = (FloatingActionButton)findViewById(R.id.floatingActionButton);
+        addpost = (Button)findViewById(R.id.addpost);
+        learn = (Button)findViewById(R.id.learn);
+        allposts = (Button)findViewById(R.id.allposts);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setTitle("Give Away");
         setSupportActionBar(toolbar);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,addpost.class);
-                startActivity(intent);
-            }
-        });
     }
 
     @Override
@@ -96,10 +92,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this,setup.class);
             startActivity(intent);
         }
-        else if(item.getItemId() == R.id.addPost) {
-            Intent intent = new Intent(MainActivity.this,addpost.class);
-            startActivity(intent);
-        }
+
 
         return true;
     }
@@ -112,6 +105,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void allposts(View view) {
         Intent intent = new Intent(this,AllPosts.class);
+        startActivity(intent);
+    }
+
+    public void addpost(View view) {
+        Intent intent = new Intent(MainActivity.this,addpost.class);
+        startActivity(intent);
+    }
+
+    public void learn(View view) {
+        Intent intent = new Intent(MainActivity.this, com.example.giveaway.learn.class);
         startActivity(intent);
     }
 }

@@ -1,5 +1,66 @@
 <resources>
     <string name="app_name">Give Away</string>
+    <string name="learn">In this modern development era , we as humans create a lot of waste and there are various problems with waste.
+At the same time , there are many people round the earth,  who suffer to get a proper meal once in a day and
+work so hard. We are here to create an interface that can connect you to the needy which helps you donate materials
+that can reduce the production of waste.\n\n
+    Education://Insights on waste management\n
+Waste:\n
+Waste are unwanted or unusable materials.\n
+Waste is any substance which is discarded after primary use,or its worthless,defective of no use.
+There can be two types of wastes, biodegradable(harmless substances) and non - bio degradable.
+We either burry or burn the waste.
+Consequences of waste disposal:
+Disposing of waste has huge environment impacts and can cause serious problems.Some wastes will eventually rot,
+but not all,and in the process it may smell, or generate methane gas, which is explosive and contributes to green house
+effect.Thus this results in a lot of pollutions like air,water.
+Waste management:
+According to wiki:These are the activities and actions required to manage waste from its inception to its final disposal.
+This includes the collection ,transport,treatment and disposal of waste.
+Explaining in simple terms:
+Waste management is a set of steps to manage the waste so that it doesnt give raise to any kind of serious problems
+to life on earth.
+From our childhood we have been learning three words-REDUCE REUSE and RECYCLE
+These are the basic techninques of waste management.
+Waste management is done on the already created waste.So instead of creating waste it would be a better option to
+reduce the production of waste or reusing the materials which go to disposal instead of treating the disposed waste.
+The most effective way to reduce the waste is to not create it in the first place.
+WASTE DISPOSAL METHODS:\n\n
+
+
+        The 3R rule or waste disposal:
+Reduce:With individual efforts, we can reduce the waste we produce in the first place.For exaple—buying something
+which is really necessary.
+Reuse:We can use things again and again for different purposes.The cans brought at the super market can be reused
+to fill loose items or plant a sapling.
+Recycle:We can reform glass,plastic, metal and paper objects and convert them into useful substances.
+There are various number of industries which recylce things such as paper industry produces new papers with old ones.
+Broken or discarded plastic items can be melted and remoulded to form other useful substances.
+  Incineration:
+Incineration is a process of combusting wates , to transfrom them into base components,with the generated heat
+being trapped for deriving energy.Pollution is caused by varied degrees dependent on nature of waste combusted
+and incinerator design. Use of filters can check the pollution. The waste volume gets reduced by about 90 %.
+Hazardous and toxic wastes can be easily be rid of by using this method.
+  composting
+it involves decompostion of organic wastes by microbes\n\n\n
+
+      composting
+it involves decomposition of organic wastes by microbes by allowing the waste to
+stay accumulated in a pit for a long period of time. The nutrient rich compost can be used as plant manure.
+However, the process is slow and consumes a significant amount of land. Biological reprocessing tremendously
+ improves the fertility of the soil.\n\n\n
+
+   Sanitary Landfill: This involves the dumping of wastes into a landfill.
+ The base is prepared of a protective lining, which serves as a barrier between wastes and ground water,
+ and prevents the separation of toxic chemicals into the water zone.
+Waste layers are subjected to compaction and subsequently coated with an earth layer.
+Soil that is non-porous is preferred to mitigate the vulnerability of accidental leakage of toxic chemicals.
+Landfills should be created in places with low groundwater level and far from sources of flooding.
+However, a sufficient number of skilled manpower is required to maintain sanitary landfills.\n\n
+
+  Disposal in ocean/sea: Wastes generally of radioactive nature are dumped in the oceans far from active human
+habitats. However, environmentalists are challenging this method,
+as such an action is believed to spell doom for aquatic life by depriving the ocean waters of its inherent nutrients.</string>
     <string-array name="types">
         <item> </item>
         <item>Food</item>

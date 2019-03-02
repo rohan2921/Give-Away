@@ -30,7 +30,7 @@ public class AllPosts extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setTitle("Settings");
+        setTitle("Contributions");
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null) {
             assert  getSupportActionBar() != null;
