@@ -12,19 +12,21 @@
 
     <Button
         android:id="@+id/cr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="63dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="120dp"
         android:onClick="cr"
         android:text="login"
+        android:textSize="26sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_bias="0.654"
         tools:ignore="HardcodedText" />
 
     <EditText
@@ -34,14 +36,16 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
+        android:gravity="center"
         android:hint="email"
         android:inputType="textEmailAddress"
+        android:textSize="26sp"
         app:layout_constraintBottom_toTopOf="@+id/p"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.534" />
+        app:layout_constraintVertical_bias="0.867" />
 
     <EditText
         android:id="@+id/p"
@@ -50,8 +54,10 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
+        android:gravity="center"
         android:hint="password"
         android:inputType="textPassword"
+        android:textSize="26sp"
         app:layout_constraintBottom_toTopOf="@+id/cr"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
