@@ -67,4 +67,5 @@ as such an action is believed to spell doom for aquatic life by depriving the oc
         <item>Electrical</item>
         <item>Material</item>
     </string-array>
+    <string name="title_activity_maps">Map</string>
 </resources>

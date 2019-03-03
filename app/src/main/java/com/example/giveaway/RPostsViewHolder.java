@@ -33,7 +33,7 @@ public class RPostsViewHolder extends RecyclerView.ViewHolder {
 
     public  void setimage(String image) {
         ImageView i = view.findViewById(R.id.image);
-        Picasso.get().load(image).into(i);
+        Picasso.get().load(image).placeholder(R.drawable.load).into(i);
     }
 
     public void setpimage(String pimage) {
